@@ -33,5 +33,4 @@ The project uses a **dynamic programming** approach to solve the knapsack proble
 
 ---
 
-##  Project Structure
- NO STRUCTURE NOOOOOOo
+
