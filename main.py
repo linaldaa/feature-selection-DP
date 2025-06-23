@@ -1,4 +1,27 @@
 import numpy as np
+import pandas as pd
+
+# Load data from CSVs
+# CSVs have to be formatted with headers for easier understanding
+
+df_features_kpis = pd.read_csv('features_kpis_table.csv')
+feature_impact_matrix = df_features_kpis.iloc[:, 1:].astype(int).to_numpy()
+
+
+df_hours = pd.read_csv('feature_development_hours.csv')
+feature_hours = df_hours.iloc[:, 1].astype(int).to_numpy()
+
+
+df_relevance = pd.read_csv('category_kpi_weights_modified.csv')
+relevance_matrix = df_relevance.iloc[0:, 1:].astype(float).to_numpy()
+
+
+
+
+# Parameters example
+max_hours = 100
+category_index = 4
+
 
 def knapsack_feature_selection(relevance_matrix, feature_impact_matrix, feature_hours, max_hours, category_index):
     """
@@ -44,12 +67,12 @@ def knapsack_feature_selection(relevance_matrix, feature_impact_matrix, feature_
 
 
 
-# Inputs as numpy arrays
-relevance_matrix = np.random.dirichlet(np.ones(20), size=19)
-feature_impact_matrix = np.random.randint(1, 26, size=(32, 20))
-feature_hours = np.random.randint(10, 50, size=32)
-max_hours = 100
-category_index = 4  
+# # Inputs as numpy arrays for randomized data if no tables are there yet
+# relevance_matrix = np.random.dirichlet(np.ones(20), size=19)
+# feature_impact_matrix = np.random.randint(1, 26, size=(32, 20))
+# feature_hours = np.random.randint(10, 50, size=32)
+# max_hours = 100
+# category_index = 4  
 
 selected_features, total_impact = knapsack_feature_selection(
     relevance_matrix,
@@ -61,3 +84,16 @@ selected_features, total_impact = knapsack_feature_selection(
 
 print("Selected feature indices:", selected_features)
 print("Total weighted impact:", total_impact)
+
+
+# Check feature_impact_matrix
+print("Feature Impact Matrix shape:", feature_impact_matrix.shape)
+print("Feature Impact Matrix preview:\n", feature_impact_matrix[:5])  # show first 5 rows
+
+# Check feature_hours
+print("Feature Hours shape:", feature_hours.shape)
+print("Feature Hours preview:\n", feature_hours[:10])  # first 10 hours
+
+# Check relevance_matrix
+print("Relevance Matrix shape:", relevance_matrix.shape)
+print("Relevance Matrix preview:\n", relevance_matrix[:5])  # show first 5 categories
